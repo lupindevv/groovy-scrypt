@@ -1,49 +1,48 @@
 pipeline {
     agent any
+
     environment {
         NEW_VERSION = '1.1.0'
-        tools {
-            maven: "maven-build"
-        }
+    }
 
+    tools {
+        maven "maven-build"
     }
 
     stages {
-        stage('test') {
+        stage('Test') {
             when {
                 expression {
-                    BRANCH_NAME == 'dev'
+                    env.BRANCH_NAME == 'dev'
                 }
             }
             steps {
-                echo 'testing the application ..'
+                echo 'Testing the application...'
             }
         }
-    }
-    
-        stage('build') {
-            steps {
-                echo 'building the application...'
-                echo 'building the application with ${NEW_VERSION}'
 
-            }
-        }
-    
-    
-        stage('deploy') {
+        stage('Build') {
             steps {
-                echo 'deploying the application...'
-                withCredentials([
-                    usernamePassword(credentials: 'server-credentials' , usernameVariable: USER , passwordVarialbe: PWD)
-                ])
+                echo 'Building the application...'
+                echo "Building the application with ${NEW_VERSION}"
             }
         }
-    
-    stage 
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+                withCredentials([
+                    usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
+                ]) {
+                    echo "Deploying with username ${env.USER}"
+                }
+            }
+        }
+
         stage('Hello') {
             steps {
                 echo 'Hello World'
             }
         }
-    
+    }
 }
