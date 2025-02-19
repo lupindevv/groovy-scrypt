@@ -1,12 +1,8 @@
 pipeline {
     agent any
-
-    environment {
-        NEW_VERSION = '1.1.0'
-    }
-
-    tools {
-        maven "maven-build"
+    parameters {
+        choice(name: 'NEW_VERSION' , choices: ['1.0', '2.0', '3.0'], description: 'Please chose between different version')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
 
     stages {
@@ -31,11 +27,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                withCredentials([
-                    usernamePassword(credentialsId: 'server-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
-                ]) {
-                    echo "Deploying with username ${env.USER}"
-                }
+                echo 'deployin version${params.NEW_VERSION}'
             }
         }
 
