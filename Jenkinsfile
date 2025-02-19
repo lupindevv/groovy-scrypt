@@ -6,12 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
-            when {
-                expression {
-                    env.BRANCH_NAME == 'main'
-                }
-            }
+        stage('Test') { 
             steps {
                 echo 'Testing the application...'
             }
@@ -27,7 +22,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                echo 'deployin version${params.NEW_VERSION}'
+                echo "deploying version${params.NEW_VERSION}"
             }
         }
 
