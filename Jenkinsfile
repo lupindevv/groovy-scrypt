@@ -8,21 +8,25 @@ pipeline {
     stages {
         stage('Test') { 
             steps {
-                echo 'Testing the application...'
+                script {
+                    gv.testApp()
+                }
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                echo "Building the application with ${NEW_VERSION}"
+                script {
+                    gv.buildApp()
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
-                echo "deploying version${params.NEW_VERSION}"
+                script {
+                    gv.deployApp()
+                }
             }
         }
 
