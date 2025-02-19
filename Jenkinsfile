@@ -20,7 +20,7 @@ pipeline {
             }
         }
     }
-    stages {
+    
         stage('build') {
             steps {
                 echo 'building the application...'
@@ -28,8 +28,8 @@ pipeline {
 
             }
         }
-    }
-    stages {
+    
+    
         stage('deploy') {
             steps {
                 echo 'deploying the application...'
@@ -38,12 +38,12 @@ pipeline {
                 ])
             }
         }
-    }
-    stages {
+    
+    stage 
         stage('Hello') {
             steps {
                 echo 'Hello World'
             }
         }
-    }
+    
 }
